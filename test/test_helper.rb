@@ -1,4 +1,9 @@
-$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'reamaze_api'
+require "reamaze_api"
+require "minitest/autorun"
+require_relative "support/assert_api_response"
 
-require 'minitest/autorun'
+ReamazeAPI.config do |c|
+  c.brand = "foo"
+  c.login = "foo"
+  c.token = "blah"
+end

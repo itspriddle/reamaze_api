@@ -30,6 +30,8 @@ module ReamazeAPI
   #                 :brand - Brand name (subdomain from your Reamaze URL)
   #                 :login - Reamaze login
   #                 :token - Reamaze API token
+  # block         - Optional block that yields a Faraday::Connection instance
+  #                 (for customizing middleware, headers, etc)
   #
   # The credentials passed to the API can be configured globally via
   # `ReamazeAPI.config` or passed to this method. Credentials passed directly
@@ -38,7 +40,9 @@ module ReamazeAPI
   # Raises ArgumentError if a brand, login or token cannot be found.
   #
   # Returns a ReamazeAPI::Client instance.
-  def self.new(**credentials)
-    Client.new(**config.to_h.select { |_, value| value }.merge(credentials))
+  def self.new(**credentials, &block)
+    params = config.to_h.select { |_, value| value }.merge(credentials)
+
+    Client.new(**params, &block)
   end
 end

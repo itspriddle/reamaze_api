@@ -9,7 +9,7 @@ Ruby library for working with the [Reamaze API][].
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'reamaze_api'
+gem "reamaze_api"
 ```
 
 And then execute:
@@ -72,6 +72,23 @@ Net::HTTP. To configure a different HTTP adapter you can set
 
 ```ruby
 Faraday.default_adapter = :httpclient
+```
+
+If you need more customization for Faraday, for example, to add additional
+middleware or change request headers, you can call `ReamazeAPI.new` with a
+block:
+
+```ruby
+class MyCoolMiddleware < Faraday::Response::Middleware
+end
+
+Faraday::Response.register_middleware \
+  my_cool_middleware: MyCoolMiddleware
+
+client = ReamazeAPI.new do |http|
+  http.response :my_cool_middleware
+  http.headers["User-Agent"] = "My Reamaze Client"
+end
 ```
 
 [Faraday]: https://github.com/lostisland/faraday

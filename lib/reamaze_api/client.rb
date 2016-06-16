@@ -27,11 +27,18 @@ module ReamazeAPI
     # Returns a String.
     API_URL = "https://%{brand}.reamaze.com/api/v1".freeze
 
+    # Public: HTTP adapter used for API requests.
+    #
+    # Returns a Faraday::Connection.
+    attr_reader :http
+
     # Public: Initialize a new Client instance.
     #
     # brand: Brand name (subdomain from your Reamaze URL)
     # login: Reamaze login
     # token: Reamaze API token
+    #
+    # Yields a Faraday::Connection if a block is given.
     #
     # Returns nothing.
     def initialize(brand:, login:, token:)
@@ -42,6 +49,8 @@ module ReamazeAPI
         builder.response   :json
         builder.adapter    Faraday.default_adapter
         builder.basic_auth login, token
+
+        yield builder if block_given?
       end
     end
 

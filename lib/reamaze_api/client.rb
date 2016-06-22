@@ -9,7 +9,7 @@ module ReamazeAPI
       define_parser do |body|
         begin
           JSON.parse(body) unless body.strip.empty?
-        rescue
+        rescue JSON::ParserError
           body
         end
       end

@@ -5,6 +5,23 @@ describe ReamazeAPI::Client do
     ReamazeAPI::Client.new(**ReamazeAPI.config.to_h, &block)
   end
 
+  describe "Middleware" do
+    subject do
+      ReamazeAPI::Client::Middleware.parser
+    end
+
+    it "rescues JSON::ParserError" do
+      response = "I'm not JSON at all!"
+
+      expect(subject.call(response)).must_equal(response)
+    end
+
+    it "raises other exceptions" do
+      # Symbol#strip will blow up
+      expect { subject.call(:blow_up) }.must_raise NoMethodError
+    end
+  end
+
   describe "::new" do
     it "yields the Faraday::Connection if a block is given" do
       client = build_client { |http| http.headers["foo"] = "bar" }

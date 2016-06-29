@@ -93,6 +93,35 @@ end
 
 [Faraday]: https://github.com/lostisland/faraday
 
+### API Errors
+
+By default, ReamazeAPI returns an error Hash for any API response with status
+400-599. For example, the API returns a 404 if you provide an invalid brand
+name:
+
+```ruby
+client = ReamazeAPI.new brand: "invalid"
+client.articles.all
+# {
+#     :success => false,
+#       :error => "ReamazeAPI::NotFound",
+#     :message => "GET https://invalid.reamaze.com/api/v1/articles: 404"
+# }
+```
+
+If you would rather raise exceptions:
+
+```ruby
+ReamazeAPI.config do |c|
+  c.exceptions = true
+end
+
+client = ReamazeAPI.new brand: "invalid"
+client.articles.all # raises
+# ReamazeAPI::NotFound: GET https://invalid.reamaze.com/api/v1/articles: 404
+#   ...backtrace
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then,

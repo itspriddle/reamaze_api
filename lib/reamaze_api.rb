@@ -1,5 +1,6 @@
 require "reamaze_api/version"
 require "reamaze_api/utils"
+require "reamaze_api/error"
 require "reamaze_api/client"
 require "reamaze_api/resource"
 require "reamaze_api/article"
@@ -10,7 +11,7 @@ require "reamaze_api/message"
 
 module ReamazeAPI
   # Public: Configuration class
-  Config = Struct.new(:brand, :login, :token)
+  Config = Struct.new(:brand, :login, :token, :exceptions)
 
   # Public: Optional default configuration used to authenticate with the
   # Reamaze API.
@@ -41,7 +42,11 @@ module ReamazeAPI
   #
   # Returns a ReamazeAPI::Client instance.
   def self.new(**credentials, &block)
-    params = config.to_h.select { |_, value| value }.merge(credentials)
+    params = {
+      brand: credentials.fetch(:brand) { config.brand },
+      login: credentials.fetch(:login) { config.login },
+      token: credentials.fetch(:token) { config.token },
+    }
 
     Client.new(**params, &block)
   end

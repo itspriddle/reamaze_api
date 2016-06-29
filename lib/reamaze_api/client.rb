@@ -3,19 +3,22 @@ require "uri"
 
 module ReamazeAPI
   class Client
-    # Reamaze's API doesn't always return JSON. If there's an error parsing
-    # the response as JSON, just return the raw body.
-    class Middleware < FaradayMiddleware::ParseJson
-      define_parser do |body|
-        begin
-          JSON.parse(body) unless body.strip.empty?
-        rescue JSON::ParserError
-          body
+    # Raises a ReamazeAPI::Error for any HTTP response code 400-599.
+    class RaiseErrorMiddleware < Faraday::Response::Middleware
+      private
+
+      # Private: Raises a ReamazeAPI::Error for any HTTP response code
+      # 400-599.
+      #
+      # response - HTTP response (Faraday::Env)
+      #
+      # Returns nothing.
+      def on_complete(response)
+        if error = ReamazeAPI::Error.from_response(response)
+          raise error
         end
       end
     end
-
-    Faraday::Response.register_middleware reamaze_api: lambda { Middleware }
 
     # Public: HTTP methods used by the API
     #
@@ -47,6 +50,7 @@ module ReamazeAPI
       @http = Faraday.new(url: @url, ssl: { verify: true }) do |builder|
         builder.request    :json
         builder.response   :json
+        builder.use        RaiseErrorMiddleware
         builder.adapter    Faraday.default_adapter
         builder.basic_auth login, token
 
@@ -98,6 +102,9 @@ module ReamazeAPI
     # path:   API path (without `/api/v1` prefix, eg: "/messages")
     # params: Hash of parameters to send with the request (default: {})
     #
+    # Raises a ReamazeAPI::Error for any HTTP response code 400-599 unless
+    # `ReamazeAPI.config.exceptions` is false.
+    #
     # Returns a Hash.
     def commit(method:, path:, params: {})
       path = "#{@url.path}#{path}"
@@ -105,7 +112,9 @@ module ReamazeAPI
       response = @http.run_request(method, path, params, {})
 
       Utils.symbolize_hash(success: response.success?, payload: response.body)
-    rescue => e
+    rescue ReamazeAPI::Error => e
+      raise if ReamazeAPI.config.exceptions
+
       Utils.error_hash(e)
     end
 

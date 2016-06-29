@@ -2,23 +2,50 @@ require "test_helper"
 
 describe ReamazeAPI::Client do
   def build_client(&block)
-    ReamazeAPI::Client.new(**ReamazeAPI.config.to_h, &block)
+    ReamazeAPI.new(**ReamazeAPI.config.to_h, &block)
   end
 
-  describe "Middleware" do
-    subject do
-      ReamazeAPI::Client::Middleware.parser
+  describe "RaiseErrorMiddleware" do
+    def stub_request(code:)
+      faraday_stub = Faraday::Adapter::Test::Stubs.new
+
+      client = build_client do |c|
+        c.builder.swap(
+          Faraday::Adapter::NetHttp,
+          Faraday::Adapter::Test,
+          faraday_stub
+        )
+      end
+
+      faraday_stub.get("/api/v1/conversations") do |_|
+        [code, {}, "{}"]
+      end
+
+      client.conversations.all
     end
 
-    it "rescues JSON::ParserError" do
-      response = "I'm not JSON at all!"
-
-      expect(subject.call(response)).must_equal(response)
+    after do
+      ReamazeAPI.config.exceptions = false
     end
 
-    it "raises other exceptions" do
-      # Symbol#strip will blow up
-      expect { subject.call(:blow_up) }.must_raise NoMethodError
+    it "returns error hash by default" do
+      expect(stub_request(code: 400).fetch(:error)).must_equal "ReamazeAPI::ClientError"
+      expect(stub_request(code: 403).fetch(:error)).must_equal "ReamazeAPI::Forbidden"
+      expect(stub_request(code: 404).fetch(:error)).must_equal "ReamazeAPI::NotFound"
+      expect(stub_request(code: 422).fetch(:error)).must_equal "ReamazeAPI::UnprocessableEntity"
+      expect(stub_request(code: 429).fetch(:error)).must_equal "ReamazeAPI::TooManyRequests"
+      expect(stub_request(code: 500).fetch(:error)).must_equal "ReamazeAPI::ServerError"
+    end
+
+    it "raises custom HTTP exceptions when configured" do
+      ReamazeAPI.config.exceptions = true
+
+      expect { stub_request(code: 400) }.must_raise ReamazeAPI::ClientError
+      expect { stub_request(code: 403) }.must_raise ReamazeAPI::Forbidden
+      expect { stub_request(code: 404) }.must_raise ReamazeAPI::NotFound
+      expect { stub_request(code: 422) }.must_raise ReamazeAPI::UnprocessableEntity
+      expect { stub_request(code: 429) }.must_raise ReamazeAPI::TooManyRequests
+      expect { stub_request(code: 500) }.must_raise ReamazeAPI::ServerError
     end
   end
 

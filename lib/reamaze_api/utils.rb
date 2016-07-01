@@ -13,18 +13,6 @@ module ReamazeAPI
       HashKeys.deep_symbolize_keys(hash)
     end
 
-    # Public: Hash used for success responses.
-    #
-    # payload - Payload from API
-    #
-    # Returns a Hash.
-    def success_hash(payload, success = true)
-      symbolize_hash(
-        success: success,
-        payload: payload
-      )
-    end
-
     # Public: Hash used for error responses.
     #
     # exception - An Exception instance

@@ -17,19 +17,6 @@ describe ReamazeAPI::Utils do
     end
   end
 
-  describe "#success_hash" do
-    subject do
-      ReamazeAPI::Utils.success_hash({ "my" => "Payload" }, true)
-    end
-
-    it "returns a success hash" do
-      expect(subject).must_equal(
-        success: true,
-        payload: { my: "Payload" }
-      )
-    end
-  end
-
   describe "#error_hash" do
     subject do
       ReamazeAPI::Utils.error_hash(StandardError.new("You broke it!"))

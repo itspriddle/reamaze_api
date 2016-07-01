@@ -38,8 +38,10 @@ describe ReamazeAPI::Utils do
     it "returns an error hash" do
       expect(subject).must_equal(
         success: false,
-        error:   "StandardError",
-        message: "You broke it!"
+        payload: {
+          error:   "StandardError",
+          message: "You broke it!"
+        }
       )
     end
   end

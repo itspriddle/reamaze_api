@@ -29,12 +29,23 @@ describe ReamazeAPI::Client do
     end
 
     it "returns error hash by default" do
-      expect(stub_request(code: 400).fetch(:error)).must_equal "ReamazeAPI::ClientError"
-      expect(stub_request(code: 403).fetch(:error)).must_equal "ReamazeAPI::Forbidden"
-      expect(stub_request(code: 404).fetch(:error)).must_equal "ReamazeAPI::NotFound"
-      expect(stub_request(code: 422).fetch(:error)).must_equal "ReamazeAPI::UnprocessableEntity"
-      expect(stub_request(code: 429).fetch(:error)).must_equal "ReamazeAPI::TooManyRequests"
-      expect(stub_request(code: 500).fetch(:error)).must_equal "ReamazeAPI::ServerError"
+      expect(stub_request(code: 400).fetch(:payload).fetch(:error)).
+        must_equal "ReamazeAPI::ClientError"
+
+      expect(stub_request(code: 403).fetch(:payload).fetch(:error)).
+        must_equal "ReamazeAPI::Forbidden"
+
+      expect(stub_request(code: 404).fetch(:payload).fetch(:error)).
+        must_equal "ReamazeAPI::NotFound"
+
+      expect(stub_request(code: 422).fetch(:payload).fetch(:error)).
+        must_equal "ReamazeAPI::UnprocessableEntity"
+
+      expect(stub_request(code: 429).fetch(:payload).fetch(:error)).
+        must_equal "ReamazeAPI::TooManyRequests"
+
+      expect(stub_request(code: 500).fetch(:payload).fetch(:error)).
+        must_equal "ReamazeAPI::ServerError"
     end
 
     it "raises custom HTTP exceptions when configured" do

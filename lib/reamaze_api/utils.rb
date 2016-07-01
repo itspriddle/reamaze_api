@@ -33,8 +33,10 @@ module ReamazeAPI
     def error_hash(exception)
       {
         success: false,
-        error:   exception.class.name,
-        message: exception.message
+        payload: {
+          error:   exception.class.name,
+          message: exception.message
+        }
       }
     end
   end

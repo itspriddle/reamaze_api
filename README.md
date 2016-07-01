@@ -104,8 +104,10 @@ client = ReamazeAPI.new brand: "invalid"
 client.articles.all
 # {
 #     :success => false,
-#       :error => "ReamazeAPI::NotFound",
-#     :message => "GET https://invalid.reamaze.com/api/v1/articles: 404"
+#     :payload => {
+#          :error => "ReamazeAPI::NotFound",
+#        :message => "GET https://invalid.reamaze.com/api/v1/articles: 404"
+#     }
 # }
 ```
 

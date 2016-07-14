@@ -374,7 +374,7 @@ href="https://www.reamaze.com/api/get_articles">www.reamaze.com/api/get_articles
 <span class='kw'>def</span> <span class='id identifier rubyid_all'>all</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='const'>Utils</span><span class='period'>.</span><span class='id identifier rubyid_symbolize_hash'>symbolize_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
 
-  <span class='id identifier rubyid_get'>get</span> <span class='id identifier rubyid_articles_path'>articles_path</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:topic</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_get'>get</span> <span class='id identifier rubyid_articles_path'>articles_path</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:topic</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -832,7 +832,7 @@ href="https://www.reamaze.com/api/put_article">www.reamaze.com/api/put_article</
 </div>
 
     <div id="footer">
-  Generated on Fri Jul  1 10:16:52 2016 by
+  Generated on Thu Jul 14 13:16:19 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.5).
 </div>

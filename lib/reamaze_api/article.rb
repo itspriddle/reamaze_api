@@ -15,7 +15,7 @@ module ReamazeAPI
     def all(params = {})
       params = Utils.symbolize_hash(params)
 
-      get articles_path(params.delete(:topic))
+      get articles_path(params.delete(:topic)), params
     end
 
     # Public: Retrieves a specific KB article.

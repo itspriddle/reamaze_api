@@ -7,6 +7,9 @@ describe ReamazeAPI::Article do
 
     expect { |client| client.articles.all(topic: "support") }.
       to_get "/api/v1/topics/support/articles"
+
+    expect { |client| client.articles.all(topic: "support", q: "search") }.
+      to_get "/api/v1/topics/support/articles", q: "search"
   end
 
   it "gets a single article with #find" do

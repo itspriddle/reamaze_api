@@ -9,6 +9,11 @@ describe ReamazeAPI::Contact do
       to_get "/api/v1/contacts", q: "search"
   end
 
+  it "auto-paginates contacts with #all(auto_paginate: true)" do
+    expect { |client| client.contacts.all(auto_paginate: true) }.
+      to_auto_paginate "/api/v1/contacts"
+  end
+
   it "creates a new contact with #create" do
     params = { some: "param" }
 

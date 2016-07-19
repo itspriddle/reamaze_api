@@ -16,8 +16,9 @@ module ReamazeAPI
     # Returns a Hash.
     def all(params = {})
       params = Utils.symbolize_hash(params)
+      url    = message_path(params.delete(:conversation_slug))
 
-      get message_path(params.delete(:conversation_slug)), params
+      paginate url, :messages, params
     end
 
     # Public: Create a new message under the given conversation.

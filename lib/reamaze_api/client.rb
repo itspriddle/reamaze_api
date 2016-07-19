@@ -118,6 +118,45 @@ module ReamazeAPI
       Utils.error_hash(e)
     end
 
+    # Private: Performs a GET request on the given path/resource. If results
+    # are more than one page, each additional page is fetched and added to the
+    # payload. If any page returns an error response, that response is
+    # immediately returned and no further requests are performed.
+    #
+    # NOTE: Beware of API rate limiting when using this method with large
+    # datasets.
+    #
+    # path     - API path (without `/api/v1` prefix, eg: "/messages")
+    # resource - ReamazeAPI resource name (eg: `:messages`)
+    # params   - Hash of parameters to send with the request (default: {})
+    #
+    # Returns a Hash.
+    def paginate(path, resource, params = {})
+      params        = Utils.symbolize_hash(params)
+      auto_paginate = params.delete(:auto_paginate)
+      output        = get(path, params)
+      page          = params.fetch(:page, 1)
+      success       = output[:success]
+      payload       = output[:payload]
+      page_count    = payload[:page_count]
+
+      if success && auto_paginate && page_count && page_count > page
+        more = paginate(path, resource, params.merge(
+          page:          page.next,
+          auto_paginate: true
+        ))
+
+        if more[:success] && more[:payload]
+          payload[resource].concat more[:payload][resource]
+        else
+          output[:success] = false
+          output[:payload] = more[:payload]
+        end
+      end
+
+      output
+    end
+
     # Private: `get`, `put`, and `post` helper methods. These submit an HTTP
     # request to the upstream API.
     #

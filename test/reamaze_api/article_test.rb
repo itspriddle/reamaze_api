@@ -12,6 +12,11 @@ describe ReamazeAPI::Article do
       to_get "/api/v1/topics/support/articles", q: "search"
   end
 
+  it "auto-paginates articles with #all(auto_paginate: true)" do
+    expect { |client| client.articles.all(auto_paginate: true) }.
+      to_auto_paginate "/api/v1/articles"
+  end
+
   it "gets a single article with #find" do
     expect { |client| client.articles.find("ID") }.
       to_get "/api/v1/articles/ID"

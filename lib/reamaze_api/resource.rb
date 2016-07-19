@@ -5,7 +5,7 @@ module ReamazeAPI
     extend Forwardable
 
     # Delegate HTTP actions back to the given Client.
-    def_delegators :@client, *Client::HTTP_METHODS
+    def_delegators :@client, :paginate, *Client::HTTP_METHODS
 
     # Public: Initialize a new Resource instance. API resources should inherit
     # from this class.

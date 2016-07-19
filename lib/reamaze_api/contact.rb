@@ -12,7 +12,7 @@ module ReamazeAPI
     #
     # Returns a Hash.
     def all(params = {})
-      get "/contacts", params
+      paginate "/contacts", :contacts, params
     end
 
     # Public: Create a new contact.

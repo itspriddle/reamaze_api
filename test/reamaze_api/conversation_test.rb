@@ -14,6 +14,11 @@ describe ReamazeAPI::Conversation do
       to_get "/api/v1/conversations/ID"
   end
 
+  it "auto-paginates conversations with #all(auto_paginate: true)" do
+    expect { |client| client.conversations.all(auto_paginate: true) }.
+      to_auto_paginate "/api/v1/conversations"
+  end
+
   it "creates a new conversation with #create" do
     params = { some: "param" }
 

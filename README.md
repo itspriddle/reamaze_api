@@ -66,6 +66,37 @@ client.messages.all
 client.messages.create
 ```
 
+## Pagination
+
+Reamaze paginates responses that return multiple resources (ie: this library's
+`#all` methods), and by default you receive page 1. You can control which page
+to fetch by passing the `:page` parameter:
+
+```ruby
+page1 = client.messages.all
+page2 = client.messages.all(page: 2)
+page3 = client.messages.all(page: 3)
+```
+
+## Auto-Pagination
+
+Auto-pagination allows you to fetch _all_ results without having to manually
+fetch each page. For example, with 3 pages of 30 conversations the following
+would fetch all 90:
+
+```ruby
+conversations = client.conversations.all(auto_paginate: true)
+```
+
+**Beware of API rate limiting!** If you attempt to auto-paginate with a large
+number of pages you may be rate limited by Reamaze. Make sure to apply filters
+where necessary (eg: `all(auto_paginate: true, for: "me@example.com")`).
+
+**Errors** If fetching any page is not successful the error will be returned
+and no further pages will be fetched.
+
+## Customization and Middleware
+
 ReamazeAPI uses the [Faraday][] library for HTTP interactions, and by default,
 Net::HTTP. To configure a different HTTP adapter you can set
 `Faraday.default_adapter`:

@@ -17,6 +17,11 @@ describe ReamazeAPI::Message do
       to_get "/api/v1/conversations/ID/messages", params
   end
 
+  it "auto-paginates messages with #all(auto_paginate: true)" do
+    expect { |client| client.messages.all(auto_paginate: true) }.
+      to_auto_paginate "/api/v1/messages"
+  end
+
   it "creates a new message with #create" do
     params = { some: "param" }
 

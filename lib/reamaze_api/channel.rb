@@ -12,7 +12,7 @@ module ReamazeAPI
     #
     # Returns a Hash.
     def all(params = {})
-      get "/channels", params
+      paginate "/channels", :channels, params
     end
 
     # Public: Retrieve a specific channel.

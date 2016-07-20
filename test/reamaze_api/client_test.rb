@@ -7,18 +7,10 @@ describe ReamazeAPI::Client do
 
   describe "RaiseErrorMiddleware" do
     def stub_request(code:)
-      faraday_stub = Faraday::Adapter::Test::Stubs.new
-
-      client = build_client do |c|
-        c.builder.swap(
-          Faraday::Adapter::NetHttp,
-          Faraday::Adapter::Test,
-          faraday_stub
-        )
-      end
-
-      faraday_stub.get("/api/v1/conversations") do |_|
-        [code, {}, "{}"]
+      client = ReamazeAPI::Testing.mock_client do |app|
+        get "/api/v1/conversations" do |_|
+          [code, {}, "{}"]
+        end
       end
 
       client.conversations.all

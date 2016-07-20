@@ -37,9 +37,9 @@ module ReamazeAPI
 
     # Public: Initialize a new Client instance.
     #
-    # brand: Brand name (subdomain from your Reamaze URL)
-    # login: Reamaze login
-    # token: Reamaze API token
+    # brand - Brand name (subdomain from your Reamaze URL)
+    # login - Reamaze login
+    # token - Reamaze API token
     #
     # Yields a Faraday::Connection if a block is given.
     #
@@ -98,9 +98,9 @@ module ReamazeAPI
 
     # Private: Submits an HTTP request to the upstream API.
     #
-    # method: HTTP method (eg: :get, :post)
-    # path:   API path (without `/api/v1` prefix, eg: "/messages")
-    # params: Hash of parameters to send with the request (default: {})
+    # method - HTTP method (eg: :get, :post)
+    # path   - API path (without `/api/v1` prefix, eg: "/messages")
+    # params - Hash of parameters to send with the request (default: {})
     #
     # Raises a ReamazeAPI::Error for any HTTP response code 400-599 unless
     # `ReamazeAPI.config.exceptions` is false.
@@ -160,8 +160,8 @@ module ReamazeAPI
     # Private: `get`, `put`, and `post` helper methods. These submit an HTTP
     # request to the upstream API.
     #
-    # path:   API path (without `/api/v1` prefix, eg: "/messages")
-    # params: Hash of parameters to send with the request (default: {})
+    # path   - API path (without `/api/v1` prefix, eg: "/messages")
+    # params - Hash of parameters to send with the request (default: {})
     #
     # Returns a Hash.
     HTTP_METHODS.each do |method|

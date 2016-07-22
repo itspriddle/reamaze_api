@@ -5,6 +5,7 @@ Gem::Specification.new do |spec|
   spec.version       = ReamazeAPI::VERSION
   spec.authors       = ["Joshua Priddle"]
   spec.email         = ["jpriddle@me.com"]
+  spec.license       = "MIT"
 
   spec.summary       = %q{Reamaze API client}
   spec.description   = %q{Reamaze API client}

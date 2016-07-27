@@ -125,6 +125,35 @@ globally:</p>
 <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span>
 </code></pre>
 
+<h2>Pagination</h2>
+
+<p>Reamaze paginates responses that return multiple resources (ie: this library&#39;s
+<code>#all</code> methods), and by default you receive page 1. You can control which page
+to fetch by passing the <code>:page</code> parameter:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_page1'>page1</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span>
+<span class='id identifier rubyid_page2'>page2</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span><span class='lparen'>(</span><span class='label'>page:</span> <span class='int'>2</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_page3'>page3</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span><span class='lparen'>(</span><span class='label'>page:</span> <span class='int'>3</span><span class='rparen'>)</span>
+</code></pre>
+
+<h2>Auto-Pagination</h2>
+
+<p>Auto-pagination allows you to fetch <em>all</em> results without having to manually
+fetch each page. For example, with 3 pages of 30 conversations the following
+would fetch all 90:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_conversations'>conversations</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_conversations'>conversations</span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span><span class='lparen'>(</span><span class='label'>auto_paginate:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+</code></pre>
+
+<p><strong>Beware of API rate limiting!</strong> If you attempt to auto-paginate with a large
+number of pages you may be rate limited by Reamaze. Make sure to apply filters
+where necessary (eg: <code>all(auto_paginate: true, for: &quot;me@example.com&quot;)</code>).</p>
+
+<p><strong>Errors</strong> If fetching any page is not successful the error will be returned
+and no further pages will be fetched.</p>
+
+<h2>Customization and Middleware</h2>
+
 <p>ReamazeAPI uses the <a href="https://github.com/lostisland/faraday">Faraday</a> library for HTTP interactions, and by default,
 Net::HTTP. To configure a different HTTP adapter you can set
 <code>Faraday.default_adapter</code>:</p>
@@ -193,10 +222,34 @@ push git commits and tags, and push the <code>.gem</code> file to
 
 <p>Bug reports and pull requests are welcome on GitHub at
 <a href="https://github.com/itspriddle/reamaze_api">https://github.com/itspriddle/reamaze_api</a>.</p>
+
+<h2>License</h2>
+
+<p>Released under the MIT license:</p>
+
+<p>Copyright (c) 2016 Joshua Priddle <a href="mailto:jpriddle@me.com">jpriddle@me.com</a></p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
 </div></div>
 
     <div id="footer">
-  Generated on Thu Jul 14 13:16:18 2016 by
+  Generated on Wed Jul 27 00:33:19 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.5).
 </div>

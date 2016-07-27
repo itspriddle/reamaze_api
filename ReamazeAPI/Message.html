@@ -340,15 +340,17 @@ href="https://www.reamaze.com/api/get_messages">www.reamaze.com/api/get_messages
 18
 19
 20
-21</pre>
+21
+22</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/reamaze_api/message.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all'>all</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='const'>Utils</span><span class='period'>.</span><span class='id identifier rubyid_symbolize_hash'>symbolize_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_url'>url</span>    <span class='op'>=</span> <span class='id identifier rubyid_message_path'>message_path</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:conversation_slug</span><span class='rparen'>)</span><span class='rparen'>)</span>
 
-  <span class='id identifier rubyid_get'>get</span> <span class='id identifier rubyid_message_path'>message_path</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:conversation_slug</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='symbol'>:messages</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -474,7 +476,6 @@ href="https://www.reamaze.com/api/post_messages">www.reamaze.com/api/post_messag
       <pre class="lines">
 
 
-36
 37
 38
 39
@@ -483,10 +484,11 @@ href="https://www.reamaze.com/api/post_messages">www.reamaze.com/api/post_messag
 42
 43
 44
-45</pre>
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/reamaze_api/message.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/reamaze_api/message.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='const'>Utils</span><span class='period'>.</span><span class='id identifier rubyid_symbolize_hash'>symbolize_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
@@ -570,16 +572,16 @@ path is prefixed with “/conversations/#slug”.</p>
       <pre class="lines">
 
 
-55
 56
 57
 58
 59
 60
-61</pre>
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/reamaze_api/message.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/reamaze_api/message.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_message_path'>message_path</span><span class='lparen'>(</span><span class='id identifier rubyid_conversation_slug'>conversation_slug</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_conversation_slug'>conversation_slug</span>
@@ -598,7 +600,7 @@ path is prefixed with “/conversations/#slug”.</p>
 </div>
 
     <div id="footer">
-  Generated on Thu Jul 14 13:16:19 2016 by
+  Generated on Wed Jul 27 00:33:19 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.5).
 </div>

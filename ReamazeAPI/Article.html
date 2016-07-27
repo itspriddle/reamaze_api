@@ -366,15 +366,17 @@ href="https://www.reamaze.com/api/get_articles">www.reamaze.com/api/get_articles
 16
 17
 18
-19</pre>
+19
+20</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/reamaze_api/article.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_all'>all</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='const'>Utils</span><span class='period'>.</span><span class='id identifier rubyid_symbolize_hash'>symbolize_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_url'>url</span>    <span class='op'>=</span> <span class='id identifier rubyid_articles_path'>articles_path</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:topic</span><span class='rparen'>)</span><span class='rparen'>)</span>
 
-  <span class='id identifier rubyid_get'>get</span> <span class='id identifier rubyid_articles_path'>articles_path</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:topic</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span>
+  <span class='id identifier rubyid_paginate'>paginate</span> <span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='symbol'>:articles</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -448,16 +450,16 @@ is prefixed with “/topic/#topic”.</p>
       <pre class="lines">
 
 
-78
 79
 80
 81
 82
 83
-84</pre>
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/reamaze_api/article.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/reamaze_api/article.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_articles_path'>articles_path</span><span class='lparen'>(</span><span class='id identifier rubyid_topic_slug'>topic_slug</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_topic_slug'>topic_slug</span>
@@ -568,14 +570,14 @@ href="https://www.reamaze.com/api/post_article">www.reamaze.com/api/post_article
       <pre class="lines">
 
 
-48
 49
 50
 51
-52</pre>
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/reamaze_api/article.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/reamaze_api/article.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='const'>Utils</span><span class='period'>.</span><span class='id identifier rubyid_symbolize_hash'>symbolize_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
@@ -684,12 +686,12 @@ href="https://www.reamaze.com/api/get_article">www.reamaze.com/api/get_article</
       <pre class="lines">
 
 
-32
 33
-34</pre>
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/reamaze_api/article.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/reamaze_api/article.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_slug'>slug</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_get'>get</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/articles/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_slug'>slug</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -812,12 +814,12 @@ href="https://www.reamaze.com/api/put_article">www.reamaze.com/api/put_article</
       <pre class="lines">
 
 
-66
 67
-68</pre>
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/reamaze_api/article.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/reamaze_api/article.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_slug'>slug</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_put'>put</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/articles/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_slug'>slug</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span>
@@ -832,7 +834,7 @@ href="https://www.reamaze.com/api/put_article">www.reamaze.com/api/put_article</
 </div>
 
     <div id="footer">
-  Generated on Thu Jul 14 13:16:19 2016 by
+  Generated on Wed Jul 27 00:33:19 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.5).
 </div>

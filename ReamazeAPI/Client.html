@@ -403,6 +403,30 @@
 </li>
 
       
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#paginate-instance_method" title="#paginate (instance method)">- (Object) <strong>paginate</strong>(path, resource, params = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Private: Performs a GET request on the given path/resource.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -423,14 +447,63 @@
     
 <p>Initialize a new Client instance.</p>
 
-<p>brand: Brand name (subdomain from your Reamaze URL) login: Reamaze login
-token: Reamaze API token</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>brand</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Brand name (subdomain from your Reamaze URL)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>login</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Reamaze login</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>token</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Reamaze API token</p>
+</div>
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Yields:</p>
 <ul class="yield">
   
@@ -696,15 +769,63 @@ token: Reamaze API token</p>
     
 <p>Private: Submits an HTTP request to the upstream API.</p>
 
-<p>method: HTTP method (eg: :get, :post) path:   API path (without `/api/v1`
-prefix, eg: “/messages”) params: Hash of parameters to send with the
-request (default: {})</p>
-
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>method</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>HTTP method (eg: :get, :post)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>path</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>API path (without `/api/v1` prefix, eg: “/messages”)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Hash of parameters to send with the request (default: {})</p>
+</div>
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -957,12 +1078,199 @@ request (default: {})</p>
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="paginate-instance_method">
+  
+    - (<tt>Object</tt>) <strong>paginate</strong>(path, resource, params = {})  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Private: Performs a GET request on the given path/resource. If results are
+more than one page, each additional page is fetched and added to the
+payload. If any page returns an error response, that response is
+immediately returned and no further requests are performed.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>NOTE:</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Beware of API rate limiting when using this method with large</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>datasets.</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>path</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>API path (without `/api/v1` prefix, eg: “/messages”)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>resource</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>ReamazeAPI resource name (eg: `:messages`)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'></span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Hash of parameters to send with the request (default: {})</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        
+        <div class='inline'>
+<p>a Hash.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/reamaze_api/client.rb', line 134</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_paginate'>paginate</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_params'>params</span>        <span class='op'>=</span> <span class='const'>Utils</span><span class='period'>.</span><span class='id identifier rubyid_symbolize_hash'>symbolize_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_auto_paginate'>auto_paginate</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:auto_paginate</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_output'>output</span>        <span class='op'>=</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_page'>page</span>          <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:page</span><span class='comma'>,</span> <span class='int'>1</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_success'>success</span>       <span class='op'>=</span> <span class='id identifier rubyid_output'>output</span><span class='lbracket'>[</span><span class='symbol'>:success</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_payload'>payload</span>       <span class='op'>=</span> <span class='id identifier rubyid_output'>output</span><span class='lbracket'>[</span><span class='symbol'>:payload</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_page_count'>page_count</span>    <span class='op'>=</span> <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='symbol'>:page_count</span><span class='rbracket'>]</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_success'>success</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_auto_paginate'>auto_paginate</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_page_count'>page_count</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_page_count'>page_count</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_page'>page</span>
+    <span class='id identifier rubyid_more'>more</span> <span class='op'>=</span> <span class='id identifier rubyid_paginate'>paginate</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span>
+      <span class='label'>page:</span>          <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_next'>next</span><span class='comma'>,</span>
+      <span class='label'>auto_paginate:</span> <span class='kw'>true</span>
+    <span class='rparen'>)</span><span class='rparen'>)</span>
+
+    <span class='kw'>if</span> <span class='id identifier rubyid_more'>more</span><span class='lbracket'>[</span><span class='symbol'>:success</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_more'>more</span><span class='lbracket'>[</span><span class='symbol'>:payload</span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_payload'>payload</span><span class='lbracket'>[</span><span class='id identifier rubyid_resource'>resource</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_concat'>concat</span> <span class='id identifier rubyid_more'>more</span><span class='lbracket'>[</span><span class='symbol'>:payload</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='id identifier rubyid_resource'>resource</span><span class='rbracket'>]</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_output'>output</span><span class='lbracket'>[</span><span class='symbol'>:success</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='kw'>false</span>
+      <span class='id identifier rubyid_output'>output</span><span class='lbracket'>[</span><span class='symbol'>:payload</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_more'>more</span><span class='lbracket'>[</span><span class='symbol'>:payload</span><span class='rbracket'>]</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_output'>output</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
     <div id="footer">
-  Generated on Thu Jul 14 13:16:19 2016 by
+  Generated on Wed Jul 27 00:33:19 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.5).
 </div>

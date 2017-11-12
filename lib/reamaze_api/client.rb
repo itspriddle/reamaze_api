@@ -94,9 +94,7 @@ module ReamazeAPI
       @messages ||= Message.new(self)
     end
 
-    private
-
-    # Private: Submits an HTTP request to the upstream API.
+    # Public: Submits an HTTP request to the upstream API.
     #
     # method - HTTP method (eg: :get, :post)
     # path   - API path (without `/api/v1` prefix, eg: "/messages")
@@ -118,7 +116,7 @@ module ReamazeAPI
       Utils.error_hash(e)
     end
 
-    # Private: Performs a GET request on the given path/resource. If results
+    # Public: Performs a GET request on the given path/resource. If results
     # are more than one page, each additional page is fetched and added to the
     # payload. If any page returns an error response, that response is
     # immediately returned and no further requests are performed.
@@ -157,7 +155,7 @@ module ReamazeAPI
       output
     end
 
-    # Private: `get`, `put`, and `post` helper methods. These submit an HTTP
+    # Public: `get`, `put`, and `post` helper methods. These submit an HTTP
     # request to the upstream API.
     #
     # path   - API path (without `/api/v1` prefix, eg: "/messages")

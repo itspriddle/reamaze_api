@@ -172,7 +172,7 @@ module ReamazeAPI
           end
       end
 
-      using self unless {}.respond_to? :transform_keys
+      using self unless {}.respond_to? :deep_symbolize_keys
 
       def self.deep_symbolize_keys(hash)
         hash.deep_symbolize_keys

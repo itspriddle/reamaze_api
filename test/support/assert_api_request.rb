@@ -1,3 +1,16 @@
+Minitest::Mock.class_eval do
+  # Checks if the given method name can be used with `method_missing`. This is
+  # used behind the scenes to assert mocks.
+  #
+  # name        - Method name
+  # include_all - If true, check private methods
+  #
+  # Returns a boolean.
+  def respond_to_missing?(name, include_all)
+    @expected_calls.key? name
+  end
+end
+
 Minitest::Assertions.class_eval do
   # Asserts that a block calls the API with expected parameters.
   #

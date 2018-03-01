@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "reamaze_api/utils/hash_keys"
 
 module ReamazeAPI

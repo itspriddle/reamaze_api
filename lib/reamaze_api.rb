@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "reamaze_api/version"
 require "reamaze_api/utils"
 require "reamaze_api/error"

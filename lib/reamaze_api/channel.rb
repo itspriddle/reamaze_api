@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ReamazeAPI
   class Channel < Resource
     # Public: Retrieves channels.

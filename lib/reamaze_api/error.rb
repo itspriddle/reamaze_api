@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ReamazeAPI
   # Encapsulates HTTP errors that may be returned by the Reamaze API. All API
   # errors inherit from this class.
@@ -45,11 +47,14 @@ module ReamazeAPI
     def build_message
       return if @response.nil?
 
-      message  = "#{@response[:method].to_s.upcase} "
-      message << "#{@response[:url]}: "
-      message << "#{@response[:status]}"
-      message << "\n\nBODY: #{@response[:body].inspect}" if @response[:body]
-      message
+      message = [].tap do |msg|
+        msg << "#{@response[:method].to_s.upcase} "
+        msg << "#{@response[:url]}: "
+        msg << "#{@response[:status]}"
+        msg << "\n\nBODY: #{@response[:body].inspect}" if @response[:body]
+      end
+
+      message.join("")
     end
   end
 

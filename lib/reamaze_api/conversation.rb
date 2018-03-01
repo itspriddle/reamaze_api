@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ReamazeAPI
   class Conversation < Resource
     # Public: Retrieve conversations.

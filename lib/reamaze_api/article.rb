@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ReamazeAPI
   class Article < Resource
     # Public: Retrieves KB articles.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ReamazeAPI
   class Contact < Resource
     # Public: Retrieve contacts.
